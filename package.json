@@ -1,0 +1,23 @@
+{
+  "name": "@webdocgroup/pipeline",
+  "version": "0.1.0",
+  "description": "TypeScript utility for creating and running data processing pipelines.",
+  "main": "index.js",
+  "scripts": {
+    "test": "test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/webdocgroup/pipeline.git"
+  },
+  "keywords": [
+    "Typescript",
+    "Middleware"
+  ],
+  "author": "Webdoc",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/webdocgroup/pipeline/issues"
+  },
+  "homepage": "https://github.com/webdocgroup/pipeline#readme"
+}
