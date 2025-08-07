@@ -3,6 +3,9 @@
   "version": "0.1.0",
   "description": "TypeScript utility for creating and running data processing pipelines.",
   "main": "index.js",
+  "engines": {
+    "node": "22"
+  },
   "scripts": {
     "clean-dist": "rm -rf dist",
     "build:esm": "tsc --project tsconfig.esm.json",
