@@ -4,8 +4,20 @@
   "description": "TypeScript utility for creating and running data processing pipelines.",
   "main": "index.js",
   "scripts": {
-    "test": "test"
+    "clean-dist": "rm -rf dist",
+    "build:esm": "tsc --project tsconfig.esm.json",
+    "build:cjs": "tsc --project tsconfig.cjs.json",
+    "build": "npm run clean-dist && npm run build:esm && npm run build:cjs",
+    "lint": "eslint . --ext .ts",
+    "prepublishOnly": "npm run build",
+    "check-types": "tsc --noEmit",
+    "test": "jest",
+    "test-ci": "jest --ci",
+    "pretty": "prettier --write ."
   },
+  "files": [
+    "dist"
+  ],
   "repository": {
     "type": "git",
     "url": "git+https://github.com/webdocgroup/pipeline.git"
@@ -19,5 +31,15 @@
   "bugs": {
     "url": "https://github.com/webdocgroup/pipeline/issues"
   },
-  "homepage": "https://github.com/webdocgroup/pipeline#readme"
+  "homepage": "https://github.com/webdocgroup/pipeline#readme",
+  "devDependencies": {
+    "@types/jest": "^30.0.0",
+    "@typescript-eslint/parser": "^8.39.0",
+    "eslint": "^9.32.0",
+    "eslint-plugin-simple-import-sort": "^12.1.1",
+    "prettier": "^3.6.2",
+    "ts-jest": "^29.4.1",
+    "typescript": "^5.9.2",
+    "typescript-eslint": "^8.39.0"
+  }
 }
