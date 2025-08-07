@@ -1,0 +1,14 @@
+{
+    "compilerOptions": {
+        "allowJs": false,
+        "declaration": true,
+        "declarationMap": true,
+        "esModuleInterop": true,
+        "forceConsistentCasingInFileNames": true,
+        "strict": true,
+        "alwaysStrict": false,
+        "skipLibCheck": true,
+        "rootDir": "./"
+    },
+    "exclude": ["node_modules", "**/node_modules/*", "dist"]
+}
