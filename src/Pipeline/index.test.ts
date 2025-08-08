@@ -25,7 +25,7 @@ describe('Pipeline', () => {
     });
 
     it('should be able to asynchronously sum numbers', async () => {
-        const pipeline = Pipeline.create<number, Promise<number>>().through([
+        const pipeline = Pipeline.create<Promise<number>>().through([
             async (data, next) => {
                 const res = await next(data + 1);
                 return res;
@@ -41,7 +41,7 @@ describe('Pipeline', () => {
     });
 
     it('should be able call a destination', async () => {
-        const pipeline = Pipeline.create<number, string>().through([
+        const pipeline = Pipeline.create<string, number>().through([
             (data, next) => {
                 return next(data + 1);
             },
@@ -75,7 +75,7 @@ describe('Pipeline', () => {
 
     it('should be able to return a new type', () => {
         const aNumber = 1;
-        const pipeline = Pipeline.create<number, string>()
+        const pipeline = Pipeline.create<string, number>()
             .send(aNumber)
             .through([
                 (data, next) => {

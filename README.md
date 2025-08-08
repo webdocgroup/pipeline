@@ -19,7 +19,7 @@ Here is an example of a simple pipeline that processes numbers:
 ```ts
 import { Pipeline } from '@webdocgroup/pipeline';
 
-const pipeline = Pipeline.create<number, number>()
+const pipeline = Pipeline.create()
     .send(1)
     .through([(data, next) => next(data + 1), (data, next) => next(data * 2)]);
 
@@ -34,7 +34,7 @@ This example demonstrates a more complex pipeline with before and after calls ar
 import { Pipeline } from '@webdocgroup/pipeline';
 
 const id = ulid();
-const pipeline = Pipeline.create<string, string>()
+const pipeline = Pipeline.create()
     .send(id)
     .through([
         (data, next) => {
@@ -74,7 +74,7 @@ import { Pipeline } from '@webdocgroup/pipeline';
 
 const statusCode = 404;
 
-const pipeline = Pipeline.create<number, number>()
+const pipeline = Pipeline.create()
     .send(statusCode)
     .through([
         (data, next) => {
