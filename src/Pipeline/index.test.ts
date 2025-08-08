@@ -86,4 +86,20 @@ describe('Pipeline', () => {
         const result = pipeline.thenReturn();
         expect(result).toEqual('String of 1');
     });
+
+    it('should be able to return early', () => {
+        const pipeline = Pipeline.create<number, number>()
+            .send(1)
+            .through([
+                () => {
+                    return 10;
+                },
+                (data, next) => {
+                    return next(data);
+                },
+            ]);
+
+        const result = pipeline.thenReturn();
+        expect(result).toEqual(10);
+    });
 });
