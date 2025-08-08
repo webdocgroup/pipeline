@@ -1,13 +1,15 @@
 export type NextPipe<Input = any, Output = any> = (data: Input) => Output;
 export type Pipe<Input = any, Output = any> = (
     data: Input,
-    next: NextPipe<Input, Output>
+    next: NextPipe<any, any>
 ) => Output;
+
+export type Pipes<Input = any> = [] | [Pipe<Input>, ...Pipe[]];
 
 type Destination<Input, Output> = NextPipe<Input, Output>;
 
 type PipelineConfig<Input> = {
-    pipes: Array<Pipe<unknown, unknown>>;
+    pipes: Pipes<Input>;
     passable: Input | null;
 };
 
@@ -28,10 +30,8 @@ export class Pipeline<Input = any, Output = any> {
     /**
      * Value to pass through the pipeline.
      */
-    public send<NextInput = any>(
-        data: Input extends any ? NextInput : Input
-    ): Pipeline<Input extends any ? NextInput : Input, Output> {
-        return new Pipeline<Input extends any ? NextInput : Input, Output>({
+    public send(data: Input): Pipeline<Input, Output> {
+        return new Pipeline<Input, Output>({
             pipes: this.props.pipes,
             passable: data,
         });
@@ -40,7 +40,7 @@ export class Pipeline<Input = any, Output = any> {
     /**
      * Add pipes to the pipeline.
      */
-    public through(pipes: Pipe[]): Pipeline<Input, Output> {
+    public through(pipes: Pipes<Input>): Pipeline<Input, Output> {
         return new Pipeline<Input, Output>({
             pipes: pipes,
             passable: this.props.passable,
@@ -71,7 +71,7 @@ export class Pipeline<Input = any, Output = any> {
     public addPipe<AdditionalPipe extends Pipe>(
         pipe: AdditionalPipe
     ): Pipeline<Input, Output> {
-        const nextPipes = [...this.props.pipes, pipe];
+        const nextPipes: Pipes = [...this.props.pipes, pipe];
 
         return new Pipeline<Input, Output>({
             pipes: nextPipes,
