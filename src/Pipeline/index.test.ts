@@ -102,4 +102,31 @@ describe('Pipeline', () => {
         const result = pipeline.thenReturn();
         expect(result).toEqual(10);
     });
+
+    it('should call the pipe before and/or after the destination', () => {
+        const pipeline = Pipeline.create<string, string>()
+            .send('<initial>')
+            .through([
+                (data, next) => {
+                    const mutation = `${data}<first:before>`;
+                    const response = next(mutation);
+
+                    return `${response}<first:after>`;
+                },
+                (data, next) => {
+                    const mutation = `${data}<second:before>`;
+                    const response = next(mutation);
+
+                    return `${response}<second:after>`;
+                },
+            ]);
+
+        const result = pipeline.then((data) => {
+            return `${data}<destination>`;
+        });
+
+        expect(result).toEqual(
+            '<initial><first:before><second:before><destination><second:after><first:after>'
+        );
+    });
 });
