@@ -6,6 +6,9 @@
   "engines": {
     "node": "22"
   },
+  "publishConfig": {
+    "access": "public"
+  },
   "scripts": {
     "clean-dist": "rm -rf dist",
     "build:esm": "tsc --project tsconfig.esm.json",
