@@ -72,4 +72,18 @@ describe('Pipeline', () => {
 
         expect(result).toEqual(4);
     });
+
+    it('should be able to return a new type', () => {
+        const aNumber = 1;
+        const pipeline = Pipeline.create<number, string>()
+            .send(aNumber)
+            .through([
+                (data, next) => {
+                    return next(`String of ${data}`);
+                },
+            ]);
+
+        const result = pipeline.thenReturn();
+        expect(result).toEqual('String of 1');
+    });
 });
