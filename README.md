@@ -1,5 +1,7 @@
 # Pipeline
 
+<img width="1280" style="border-radius:45px;" height="640" alt="Banner with Webdoc logo + Pipeline logo" src="https://github.com/user-attachments/assets/87a09bff-12c5-4d67-8d58-7b56d9f2fcd6" />
+
 Pipeline is a lightweight and flexible TypeScript utility for creating and running modular data processing pipelines. It is inspired by Laravel middleware, providing a similar approach to chaining and processing data through multiple stages.
 
 ## Installation
