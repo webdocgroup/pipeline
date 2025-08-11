@@ -2,7 +2,16 @@
   "name": "@webdocgroup/pipeline",
   "version": "0.1.0",
   "description": "TypeScript utility for creating and running data processing pipelines.",
-  "main": "index.js",
+  "main": "./dist/cjs/index.js",
+  "module": "./dist/esm/index.js",
+  "types": "./dist/esm/index.d.ts",
+  "exports": {
+    ".": {
+      "require": "./dist/cjs/index.js",
+      "import": "./dist/esm/index.js",
+      "types": "./dist/esm/index.d.ts"
+    }
+  },
   "engines": {
     "node": "22"
   },

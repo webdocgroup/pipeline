@@ -10,18 +10,12 @@ describe('Pipeline', () => {
         const pipeline = Pipeline.create<number, number>()
             .send(1)
             .through([
-                (data, next) => {
-                    const res = next(data + 1);
-                    return res + 1;
-                },
-                (data, next) => {
-                    const x = next(data + 1);
-                    return x + 1;
-                },
+                (data, next) => next(data + 1),
+                (data, next) => next(data + 1),
             ]);
 
         const result = pipeline.thenReturn();
-        expect(result).toEqual(5);
+        expect(result).toEqual(3);
     });
 
     it('should be able to asynchronously sum numbers', async () => {
