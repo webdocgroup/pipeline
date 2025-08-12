@@ -4,12 +4,14 @@ export type Pipe<Input = any, Output = any> = (
     next: NextPipe<any, any>
 ) => Output;
 
-export type Pipes<Input = any> = [] | [Pipe<Input>, ...Pipe[]];
+export type PipesWithStrictInitial<Input = any> = [] | [Pipe<Input>, ...Pipe[]];
+
+export type Pipes = Pipe[];
 
 type Destination<Input, Output> = NextPipe<Input, Output>;
 
 type PipelineConfig<Input> = {
-    pipes: Pipes<Input>;
+    pipes: Pipes;
     passable: Input | null;
 };
 
@@ -40,7 +42,7 @@ export class Pipeline<Output = any, Input = any> {
     /**
      * Add pipes to the pipeline.
      */
-    public through(pipes: Pipes<Input>): Pipeline<Output, Input> {
+    public through(pipes: Pipes): Pipeline<Output, Input> {
         return new Pipeline<Output, Input>({
             pipes: pipes,
             passable: this.props.passable,

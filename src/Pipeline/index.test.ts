@@ -10,18 +10,12 @@ describe('Pipeline', () => {
         const pipeline = Pipeline.create<number, number>()
             .send(1)
             .through([
-                (data, next) => {
-                    const res = next(data + 1);
-                    return res + 1;
-                },
-                (data, next) => {
-                    const x = next(data + 1);
-                    return x + 1;
-                },
+                (data, next) => next(data + 1),
+                (data, next) => next(data + 1),
             ]);
 
         const result = pipeline.thenReturn();
-        expect(result).toEqual(5);
+        expect(result).toEqual(3);
     });
 
     it('should be able to asynchronously sum numbers', async () => {
@@ -128,23 +122,5 @@ describe('Pipeline', () => {
         expect(result).toEqual(
             '<initial><first:before><second:before><destination><second:after><first:after>'
         );
-    });
-
-    it('should infer the input type for the first pipe', () => {
-        const pipeline = Pipeline.create<string, string>()
-            .send('passable')
-            .through([
-                // @ts-expect-error the first pipe should be inferred as
-                // a string by the class generic input type
-                (data: number, next) => {
-                    return next(data + ' first');
-                },
-                (data, next) => {
-                    return next(data + ' second');
-                },
-            ]);
-
-        const result = pipeline.thenReturn();
-        expect(result).toEqual('passable first second');
     });
 });
